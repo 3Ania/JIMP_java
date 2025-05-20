@@ -2,8 +2,8 @@ package graph_division;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 
 
 
@@ -14,15 +14,21 @@ public class division_menu {
     JButton tog_button_text = new JButton(" ");
     JButton tog_button_bin = new JButton(" ");
 
-    private void add_back_panel(JPanel main_panel){
+    public static JPanel create_back_panel(JFrame frame, String[] args, int where_to){
         JPanel back_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         back_panel.setBackground(Color.WHITE);
         JButton back = new JButton("Powrót");
         back.setFont(new Font("Inter", Font.PLAIN, 20));
-        back.setBackground(gray);
+        back.setBackground(new Color(180,180,180));
         back_panel.add(back);
         back_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, back.getPreferredSize().height));
-        main_panel.add(back_panel);
+        back.addActionListener(_ -> {
+                frame.dispose();
+                if(where_to == 1){
+                    division_menu.main(args);
+                }
+        });
+        return back_panel;
     }
 
     private void add_caption(JPanel main_panel){
@@ -33,7 +39,7 @@ public class division_menu {
         main_panel.add(caption);
     }
 
-    private void add_buttons(JPanel main_panel){
+    private void add_buttons(JPanel main_panel, JFrame frame, String[] args){
         JButton show_graphs = new JButton("Wyświetl grafy po podziale");
         show_graphs.setFont(new Font("Inter", Font.PLAIN, 30));
         show_graphs.setBackground(gray);
@@ -42,6 +48,11 @@ public class division_menu {
         targetSize.width += 10;
         show_graphs.setPreferredSize(targetSize);
         show_graphs.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
+
+        show_graphs.addActionListener(_ -> {
+                frame.dispose();
+                draw_graph.main(args);
+        });
 
         JButton divide = new JButton("Podziel graf");
         divide.setFont(new Font("Inter", Font.PLAIN, 30));
@@ -79,9 +90,7 @@ public class division_menu {
         tog_button_bin.setFont(new Font("Inter", Font.PLAIN, 10));
         tog_button_bin.setBackground(gray);
 
-        tog_button_text.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        tog_button_text.addActionListener(_ -> {
                 if (!tog_button_text.getBackground().equals(blue)) {
                     tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
@@ -91,20 +100,16 @@ public class division_menu {
                     tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_text.setSelected(false);
                 }
-            }
         });
-        tog_button_bin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!tog_button_bin.getBackground().equals(blue)) {
-                    tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
-                    tog_button_text.setBackground(gray); // Powrót do początkowego koloru
-                    tog_button_text.setSelected(false);
-                } else {
-                    tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
-                    tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
-                    tog_button_bin.setSelected(false);
-                }
+        tog_button_bin.addActionListener(_ -> {
+            if (!tog_button_bin.getBackground().equals(blue)) {
+                tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
+                tog_button_text.setBackground(gray); // Powrót do początkowego koloru
+                tog_button_text.setSelected(false);
+            } else {
+                tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
+                tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
+                tog_button_bin.setSelected(false);
             }
         });
 
@@ -159,7 +164,7 @@ public class division_menu {
         main_panel.add(bottom_panel);
     }
 
-    public division_menu() {
+    public division_menu(String[] args) {
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -181,9 +186,10 @@ public class division_menu {
         main_panel.setLayout(new BoxLayout(main_panel, BoxLayout.Y_AXIS));
         main_panel.setBackground(Color.WHITE);
 
-        add_back_panel(main_panel);
+        JPanel back_panel = create_back_panel(frame, args, 1);
+        main_panel.add(back_panel);
         add_caption(main_panel);
-        add_buttons(main_panel);
+        add_buttons(main_panel, frame, args);
 
         create_toggle_panel(main_panel);
         create_bottom_panel(main_panel);
@@ -192,10 +198,6 @@ public class division_menu {
         frame.setVisible(true);
     }
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new division_menu();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new division_menu(args));
     }
 }
