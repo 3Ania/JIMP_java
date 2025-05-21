@@ -6,23 +6,25 @@ import java.awt.*;
 class circle extends JPanel {
 
     private final int circle_diameter;
-    private final Color circle_color = new Color(53, 193, 232);
-    private final int stroke_size = 3;
+    private final Color circle_color;
+    private final int stroke_size;
     private final String text_in_circle;
 
-//    public circle(int diameter, Color color, String text) {
-//        this.circle_color = color;
-//        this.circle_diameter = diameter;
-//        this.text_in_circle = text;
-//        setOpaque(false);
-//    }
-
-    public circle(int diameter, String text) {
-//        this.circle_color = new Color(53, 193, 232);
+    public circle(int diameter, Color color, String text, int str_size) {
+        this.circle_color = color;
         this.circle_diameter = diameter;
         this.text_in_circle = text;
+        this.stroke_size = str_size;
         setOpaque(false);
     }
+
+//    public circle(int diameter, String text, int str_size) {
+//        this.circle_color = new Color(53, 193, 232);
+//        this.circle_diameter = diameter;
+//        this.text_in_circle = text;
+//        this.stroke_size = str_size;
+//        setOpaque(false);
+//    }
 
     // Domyślny konstruktor, jeśli chcesz mieć domyślną średnicę
 //    public circle() {
