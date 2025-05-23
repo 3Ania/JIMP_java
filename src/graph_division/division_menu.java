@@ -14,7 +14,7 @@ public class division_menu {
     JButton tog_button_text = new JButton(" ");
     JButton tog_button_bin = new JButton(" ");
 
-    public static JPanel create_back_panel(JFrame frame, String[] args, int where_to){
+    public static JPanel create_back_panel(JFrame frame, String[] args, int where_to, Graph graph){
         JPanel back_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         back_panel.setBackground(Color.WHITE);
         JButton back = new JButton("Powrót");
@@ -25,7 +25,7 @@ public class division_menu {
         back.addActionListener(_ -> {
                 frame.dispose();
                 if(where_to == 1){
-                    division_menu.main(args);
+                    division_menu.main(args, graph);
                 }
         });
         return back_panel;
@@ -39,7 +39,7 @@ public class division_menu {
         main_panel.add(caption);
     }
 
-    private void add_buttons(JPanel main_panel, JFrame frame, String[] args){
+    private void add_buttons(JPanel main_panel, JFrame frame, String[] args, Graph graph){
         JButton show_graphs = new JButton("Wyświetl grafy po podziale");
         show_graphs.setFont(new Font("Inter", Font.PLAIN, 30));
         show_graphs.setBackground(gray);
@@ -51,7 +51,7 @@ public class division_menu {
 
         show_graphs.addActionListener(_ -> {
                 frame.dispose();
-                draw_graph.main(args);
+                draw_graph.main(args, graph);
         });
 
         JButton divide = new JButton("Podziel graf");
@@ -164,7 +164,7 @@ public class division_menu {
         main_panel.add(bottom_panel);
     }
 
-    public division_menu(String[] args) {
+    public division_menu(String[] args, Graph graph) {
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -186,10 +186,10 @@ public class division_menu {
         main_panel.setLayout(new BoxLayout(main_panel, BoxLayout.Y_AXIS));
         main_panel.setBackground(Color.WHITE);
 
-        JPanel back_panel = create_back_panel(frame, args, 1);
+        JPanel back_panel = create_back_panel(frame, args, 1, graph);
         main_panel.add(back_panel);
         add_caption(main_panel);
-        add_buttons(main_panel, frame, args);
+        add_buttons(main_panel, frame, args, graph);
 
         create_toggle_panel(main_panel);
         create_bottom_panel(main_panel);
@@ -197,7 +197,7 @@ public class division_menu {
         frame.add(main_panel);
         frame.setVisible(true);
     }
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new division_menu(args));
+    public static void main(String[] args, Graph graph) {
+        SwingUtilities.invokeLater(() -> new division_menu(args, graph));
     }
 }
