@@ -1,5 +1,7 @@
 package graph_division;
 
+import connection_with_C.GraphDividerWrapper;
+
 import javax.swing.*;
 import java.awt.*;
 //import java.awt.event.ActionEvent;
@@ -13,6 +15,9 @@ public class division_menu {
 
     JButton tog_button_text = new JButton(" ");
     JButton tog_button_bin = new JButton(" ");
+
+    JTextField p_amount_field = new JTextField();
+    JTextField margin_field = new JTextField();
 
     public static JPanel create_back_panel(JFrame frame, String[] args, int where_to, Graph graph){
         JPanel back_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -60,6 +65,19 @@ public class division_menu {
         divide.setPreferredSize(targetSize);
         divide.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        divide.addActionListener(_ -> {
+            int parts_amount = 2;
+            int margin = 10;
+            if(!p_amount_field.getText().isEmpty()){
+                parts_amount = Integer.parseInt(p_amount_field.getText());
+            }
+            if(!margin_field.getText().isEmpty()){
+                margin = Integer.parseInt(margin_field.getText());
+            }
+            GraphDividerWrapper.main(args, parts_amount, margin);
+            fill_Graph_with_output.main(args, parts_amount, graph);
+        });
 
         JButton save_graphs = new JButton("Zapisz grafy po podziale");
         save_graphs.setFont(new Font("Inter", Font.PLAIN, 30));
@@ -141,7 +159,6 @@ public class division_menu {
         parts_amount.setFont(new Font("Inter", Font.PLAIN, 25));
         bottom_panel.add(parts_amount);
 
-        JTextField p_amount_field = new JTextField();
         p_amount_field.setFont(new Font("Inter", Font.PLAIN, 25));
         p_amount_field.setColumns(2);
         bottom_panel.add(p_amount_field);
@@ -150,7 +167,6 @@ public class division_menu {
         margin.setFont(new Font("Inter", Font.PLAIN, 25));
         bottom_panel.add(margin);
 
-        JTextField margin_field = new JTextField();
         margin_field.setFont(new Font("Inter", Font.PLAIN, 25));
         margin_field.setColumns(2);
         bottom_panel.add(margin_field);
