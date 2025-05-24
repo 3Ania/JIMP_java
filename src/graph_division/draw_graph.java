@@ -79,8 +79,6 @@ public class draw_graph {
 
             circleX.add(middleX);
             circleY.add(middleY);
-
-            System.out.println(middleX + " " + middleY);
         }
 
 
