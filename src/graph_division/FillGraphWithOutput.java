@@ -47,12 +47,12 @@ public class FillGraphWithOutput {
                         node_amount++;
                     }
                 }
-                else if(line_nr == 3){
+                else if(parts_amount != 0 && line_nr == 3){
                     splitted_line4 = line.split(";");
                     connections = new int[node_amount][];
                     parts = new int[parts_amount][];
                 }
-                else{
+                else if(parts_amount != 0){
                     String[] splitted_line = line.split(";");
                     sizep = splitted_line.length;
 
@@ -109,22 +109,8 @@ public class FillGraphWithOutput {
                     idxj++;
                 }
             }
-
-//            System.out.println("Connections: ");
-//            for(i = 0; i < node_amount; i++){
-//                for(j = 0; j < connections[i].length; j++){
-//                    System.out.print(connections[i][j] + " ");
-//                }System.out.println();
-//            }
-//            System.out.println("Parts: ");
-//            for(i = 0; i < parts_amount; i++){
-//                for(j = 0; j < parts[i].length; j++){
-//                    System.out.print(parts[i][j] + " ");
-//                }System.out.println();
-//            }
         } catch (IOException e) {
             System.err.println("Wystąpił błąd podczas odczytu pliku: " + e.getMessage());
-           // e.printStackTrace();
         }
         graph.connections = connections;
         graph.parts = parts;

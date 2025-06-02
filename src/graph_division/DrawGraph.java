@@ -13,7 +13,7 @@ public class DrawGraph {
     final List<Circle> circleComponents = new ArrayList<>();
     Color blue = new Color(53, 193, 232);
 
-    public DrawGraph(String[] args, Graph graph) {
+    public DrawGraph(String[] args, Graph graph, int where_to) {
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -24,7 +24,7 @@ public class DrawGraph {
 
         JPanel main_panel = new JPanel(new BorderLayout());
 
-        if (graph.connections.length == 0 || graph.placing.length == 0 || graph.parts.length == 0 || graph.connections[0].length == 0 || graph.parts[0].length == 0 || graph.placing[0].length == 0) {
+        if (graph.placing == null || graph.placing.length == 0 || graph.placing[0].length == 0) {
             JLabel error = new JLabel("Nie można podzielić grafu");
             error.setFont(new Font("Inter", Font.BOLD, 50));
             System.out.println("error");
@@ -43,12 +43,13 @@ public class DrawGraph {
             GraphDisplayPanel graph_panel = new GraphDisplayPanel(new GridBagLayout());
             graph_panel.setBackground(Color.WHITE);
             GridBagConstraints c = new GridBagConstraints();
-            c.insets = new Insets(15, 15, 15, 15);
-            int diameter = 600 / (graph.placing.length + 1) - 30 - 9;
-            int stroke_size = 3;
 
-            JPanel backpanel = DivisionMenu.create_back_panel(frame, args, 1, graph);
+            JPanel backpanel = DivisionMenu.create_back_panel(frame, args, where_to, graph);
             main_panel.add(backpanel, BorderLayout.NORTH);
+
+            c.insets = new Insets(15, 15, 15, 15);
+            int diameter = (frame.getHeight() - 200) / (graph.placing.length + 1);
+            int stroke_size = 3;
 
             Circle new_circle;
 
@@ -110,7 +111,7 @@ public class DrawGraph {
 
     }
 
-    public static void main(String[] args, Graph graph) {
-        SwingUtilities.invokeLater(() -> new DrawGraph(args, graph));
+    public static void main(String[] args, Graph graph, int where_to) {
+        SwingUtilities.invokeLater(() -> new DrawGraph(args, graph, where_to));
     }
 }

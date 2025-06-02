@@ -32,7 +32,7 @@ class GraphDisplayPanel extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g.create(); // Użyj kopii Graphics dla bezpieczeństwa
         g2d.setColor(Color.BLACK); // Kolor linii
-        g2d.setStroke(new BasicStroke(3)); // szerokość linii
+        g2d.setStroke(new BasicStroke(1)); // szerokość linii
 
         // Iteruj po liście linii i rysuj każdą z nich
         for (Line2D.Double line : connectionLines) {

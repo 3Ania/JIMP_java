@@ -4,13 +4,13 @@ import java.io.IOException;
 
 public class GraphDividerWrapper {
 
-    public void get_output_from_C(int parts_amount, int margin) {
+    public static boolean get_output_from_C(int parts_amount, int margin) {
         // Path to your C executable
-        String cExecutablePath = "src/connection_with_C/graph_divider.exe";
+        String cExecutablePath = "src\\connection_with_C\\graph_divider.exe";
 
         // Full path to your input graph file, as confirmed working in CMD
-        String inputGraphFilePath = "src/connection_with_C/input_graph.txt";
-        boolean isBinary = false; // Set to true if you want binary output
+        String inputGraphFilePath = "src\\connection_with_C\\input_graph.txt";
+        boolean isBinary = false;
 
         try {
             // Prepare the command to execute
@@ -31,12 +31,10 @@ public class GraphDividerWrapper {
             Process process = processBuilder.start();
 
             process.waitFor();
-
+            return true;
         } catch (IOException | InterruptedException e) {
             System.err.println("Error executing C program: " + e.getMessage());
+            return false;
         }
-    }
-    public static void main(String[] args, int parts_amount, int margin) {
-        new GraphDividerWrapper().get_output_from_C(parts_amount, margin);
     }
 }

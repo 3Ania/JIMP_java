@@ -63,7 +63,7 @@ public class DivisionMenu {
 
         show_graphs.addActionListener(_ -> {
                 frame.dispose();
-                DrawGraph.main(args, graph);
+                DrawGraph.main(args, graph, 1);
         });
 
         JButton divide = new JButton("Podziel graf");
@@ -82,8 +82,23 @@ public class DivisionMenu {
             if(!margin_field.getText().isEmpty()){
                 margin = Integer.parseInt(margin_field.getText());
             }
-            GraphDividerWrapper.main(args, parts_amount, margin);
+            boolean isDivided = GraphDividerWrapper.get_output_from_C(parts_amount, margin);
             FillGraphWithOutput.main(args, parts_amount, graph);
+            if(isDivided && graph.placing.length != 0 && graph.placing[0].length != 0){
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Podział grafu zakończony sukcesem.",
+                        "GraphDivision successfull", // Tytuł okienka
+                        JOptionPane.INFORMATION_MESSAGE // Typ wiadomości
+                );
+            }else{
+                JOptionPane.showMessageDialog(
+                        null, //null dla centralnego położenia na ekranie
+                        "Wystąpił błąd przy dzieleniu grafu",
+                        "GraphDivision unsuccessfull", // Tytuł okienka
+                        JOptionPane.ERROR_MESSAGE // Typ wiadomości
+                );
+            }
         });
 
         JButton save_graphs = new JButton("Zapisz grafy po podziale");
@@ -212,6 +227,7 @@ public class DivisionMenu {
         JPanel main_panel = new JPanel();
         main_panel.setLayout(new BoxLayout(main_panel, BoxLayout.Y_AXIS));
         main_panel.setBackground(Color.WHITE);
+
 
         JPanel back_panel = create_back_panel(frame, args, 2, graph);
         main_panel.add(back_panel);

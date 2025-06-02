@@ -31,6 +31,13 @@ public class MainMenu {
         show_graph.setFont(new Font("Inter", Font.PLAIN, 30));
         show_graph.setBackground(gray);
         show_graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        show_graph.addActionListener(_ -> {
+            frame.dispose();
+            FillGraphWithOutput.main(args, 0, graph);
+            DrawGraph.main(args, graph, 2);
+        });
+
         Dimension targetSize = show_graph.getPreferredSize();
         targetSize.width += 10;
         show_graph.setPreferredSize(targetSize);
@@ -49,8 +56,8 @@ public class MainMenu {
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         divide.addActionListener(_ -> {
-        frame.dispose();
-        DivisionMenu.main(args, graph);
+            frame.dispose();
+            DivisionMenu.main(args, graph);
         });
 
         JButton read = new JButton("Wczytaj graf");
