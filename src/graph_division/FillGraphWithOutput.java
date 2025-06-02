@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class fill_Graph_with_output {
+public class FillGraphWithOutput {
     public static void main(String[] args, int parts_amount, Graph graph) {
         String filePath = "output.txt"; // Zmień na faktyczną ścieżkę do pliku
 

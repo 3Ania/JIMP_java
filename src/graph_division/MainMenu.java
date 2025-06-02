@@ -50,7 +50,7 @@ public class MainMenu {
 
         divide.addActionListener(_ -> {
         frame.dispose();
-        division_menu.main(args, graph);
+        DivisionMenu.main(args, graph);
         });
 
         JButton read = new JButton("Wczytaj graf");

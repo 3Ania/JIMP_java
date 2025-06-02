@@ -8,12 +8,12 @@ import java.util.Random;
 
 //import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyles.caption;
 
-public class draw_graph {
+public class DrawGraph {
 
-    final List<circle> circleComponents = new ArrayList<>();
+    final List<Circle> circleComponents = new ArrayList<>();
     Color blue = new Color(53, 193, 232);
 
-    public draw_graph(String[] args, Graph graph) {
+    public DrawGraph(String[] args, Graph graph) {
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -33,7 +33,7 @@ public class draw_graph {
             main_panel.add(error, BorderLayout.CENTER);
             main_panel.setBackground(Color.white);
 
-            JPanel backpanel = division_menu.create_back_panel(frame, args, 1, graph);
+            JPanel backpanel = DivisionMenu.create_back_panel(frame, args, 1, graph);
             main_panel.add(backpanel, BorderLayout.NORTH);
 
 
@@ -47,10 +47,10 @@ public class draw_graph {
             int diameter = 600 / (graph.placing.length + 1) - 30 - 9;
             int stroke_size = 3;
 
-            JPanel backpanel = division_menu.create_back_panel(frame, args, 1, graph);
+            JPanel backpanel = DivisionMenu.create_back_panel(frame, args, 1, graph);
             main_panel.add(backpanel, BorderLayout.NORTH);
 
-            circle new_circle;
+            Circle new_circle;
 
             int number_on_node = 0;
             Color current_color = blue;
@@ -71,7 +71,7 @@ public class draw_graph {
                                 }
                             }
                         }
-                        new_circle = new circle(diameter, current_color, String.valueOf(number_on_node), stroke_size);
+                        new_circle = new Circle(diameter, current_color, String.valueOf(number_on_node), stroke_size);
                         graph_panel.add(new_circle, c);
                         number_on_node++;
                         circleComponents.add(new_circle);
@@ -88,7 +88,7 @@ public class draw_graph {
             List<Integer> circleX = new ArrayList<>();
             List<Integer> circleY = new ArrayList<>();
 
-            for (circle cir : circleComponents) {
+            for (Circle cir : circleComponents) {
                 int x = cir.getX() + stroke_size;
                 int y = cir.getY() + stroke_size;
 
@@ -111,6 +111,6 @@ public class draw_graph {
     }
 
     public static void main(String[] args, Graph graph) {
-        SwingUtilities.invokeLater(() -> new draw_graph(args, graph));
+        SwingUtilities.invokeLater(() -> new DrawGraph(args, graph));
     }
 }

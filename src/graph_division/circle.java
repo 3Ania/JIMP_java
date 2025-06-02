@@ -3,14 +3,14 @@ package graph_division;
 import javax.swing.*;
 import java.awt.*;
 
-class circle extends JPanel {
+class Circle extends JPanel {
 
     private final int circle_diameter;
     private final Color circle_color;
     private final int stroke_size;
     private final String text_in_circle;
 
-    public circle(int diameter, Color color, String text, int str_size) {
+    public Circle(int diameter, Color color, String text, int str_size) {
         this.circle_color = color;
         this.circle_diameter = diameter;
         this.text_in_circle = text;
