@@ -8,6 +8,9 @@ public class MainMenu {
 
     Color blue = new Color(53, 193, 232);
     Color gray = new Color(180,180,180);
+    Graph graph1;
+    Graph graph;
+    private String path;
 
     //suwak
     JButton tog_button_text = new JButton(" ");
@@ -26,7 +29,7 @@ public class MainMenu {
     }
 
     //przyciski
-    private void add_buttons(JPanel main_panel, JFrame frame, String[] args, Graph graph){
+    private void add_buttons(JPanel main_panel, JFrame frame, String[] args){
         JButton show_graph = new JButton("Wyświetl graf");
         show_graph.setFont(new Font("Inter", Font.PLAIN, 30));
         show_graph.setBackground(gray);
@@ -49,8 +52,15 @@ public class MainMenu {
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         divide.addActionListener(_ -> {
-        frame.dispose();
-        DivisionMenu.main(args, graph);
+        if(graph1!=null)
+        DivisionMenu.main(args, graph, path);
+        else 
+        JOptionPane.showMessageDialog(
+            frame,
+            "Nie wczytano grafu",
+            "Błąd",
+            JOptionPane.PLAIN_MESSAGE
+        );
         });
 
         JButton read = new JButton("Wczytaj graf");
@@ -67,7 +77,11 @@ public class MainMenu {
         if (result == JFileChooser.APPROVE_OPTION) {
             //kod wczytywania pliku do grafu
             File selectedFile = fileChooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
             System.out.println("Wczytano plik: " + selectedFile.getAbsolutePath());
+            graph1 = new Graph();
+            graph = new Graph();
+            FillGraphWithOutput.main(args, 1, graph1, path);
             }
         });
 
@@ -144,7 +158,7 @@ public class MainMenu {
     }
 
     //konstruktor
-    public MainMenu(String[] args, Graph graph) {
+    public MainMenu(String[] args) {
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -167,15 +181,15 @@ public class MainMenu {
         main_panel.setBackground(Color.WHITE);
 
         add_caption(main_panel);
-        add_buttons(main_panel, frame, args, graph);
+        add_buttons(main_panel, frame, args);
 
         create_toggle_panel(main_panel);
 
         frame.add(main_panel);
         frame.setVisible(true);
     }
-    public static void main(String[] args, Graph graph) {
-        SwingUtilities.invokeLater(() -> new MainMenu(args, graph));
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new MainMenu(args));
     }
 }
 

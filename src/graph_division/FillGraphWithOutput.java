@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FillGraphWithOutput {
-    public static void main(String[] args, int parts_amount, Graph graph) {
-        String filePath = "output.txt"; // Zmień na faktyczną ścieżkę do pliku
+    public static void main(String[] args, int parts_amount, Graph graph, String path) {
+        String filePath = path; // Zmień na faktyczną ścieżkę do pliku
 
         int line_nr = 0;
         int[][] placing = {{}};

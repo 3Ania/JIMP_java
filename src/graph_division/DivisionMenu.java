@@ -12,6 +12,7 @@ import java.awt.*;
 public class DivisionMenu {
     Color blue = new Color(53, 193, 232);
     Color gray = new Color(180,180,180);
+    private static String path1;
 
     //suwak
     JButton tog_button_text = new JButton(" ");
@@ -32,10 +33,10 @@ public class DivisionMenu {
         back.addActionListener(_ -> {
                 frame.dispose();
                 if(where_to == 1){
-                    DivisionMenu.main(args, graph);
+                    DivisionMenu.main(args, graph, path1);
                 }
                 if(where_to == 2){
-                    MainMenu.main(args, graph);
+                    MainMenu.main(args);
                 }
         });
         return back_panel;
@@ -83,7 +84,7 @@ public class DivisionMenu {
                 margin = Integer.parseInt(margin_field.getText());
             }
             GraphDividerWrapper.main(args, parts_amount, margin);
-            FillGraphWithOutput.main(args, parts_amount, graph);
+            FillGraphWithOutput.main(args, parts_amount, graph, path1);
         });
 
         JButton save_graphs = new JButton("Zapisz grafy po podziale");
@@ -191,7 +192,8 @@ public class DivisionMenu {
     }
 
     //konstruktor
-    public DivisionMenu(String[] args, Graph graph) {
+    public DivisionMenu(String[] args, Graph graph, String path) {
+        path1 = path;
         JFrame frame = new JFrame("GraphDivider");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
@@ -224,7 +226,7 @@ public class DivisionMenu {
         frame.add(main_panel);
         frame.setVisible(true);
     }
-    public static void main(String[] args, Graph graph) {
-        SwingUtilities.invokeLater(() -> new DivisionMenu(args, graph));
+    public static void main(String[] args, Graph graph, String path) {
+        SwingUtilities.invokeLater(() -> new DivisionMenu(args, graph, path));
     }
 }
