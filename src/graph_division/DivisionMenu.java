@@ -29,7 +29,7 @@ public class DivisionMenu {
         back.setBackground(new Color(180,180,180));
         back_panel.add(back);
         back_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, back.getPreferredSize().height));
-        back.addActionListener(_ -> {
+        back.addActionListener(e -> {
                 frame.dispose();
                 if(where_to == 1){
                     DivisionMenu.main(args, graph);
@@ -61,7 +61,7 @@ public class DivisionMenu {
         show_graphs.setPreferredSize(targetSize);
         show_graphs.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
 
-        show_graphs.addActionListener(_ -> {
+        show_graphs.addActionListener(e -> {
                 frame.dispose();
                 DrawGraph.main(args, graph, 1);
         });
@@ -73,7 +73,7 @@ public class DivisionMenu {
         divide.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        divide.addActionListener(_ -> {
+        divide.addActionListener(e -> {
             int parts_amount = 2;
             int margin = 10;
             if(!p_amount_field.getText().isEmpty()){
@@ -83,7 +83,7 @@ public class DivisionMenu {
                 margin = Integer.parseInt(margin_field.getText());
             }
             boolean isDivided = GraphDividerWrapper.get_output_from_C(parts_amount, margin);
-            FillGraphWithOutput.main(args, parts_amount, graph);
+            FillGraphWithOutput.main(args, parts_amount, graph, "output.txt");
             if(isDivided && graph.placing.length != 0 && graph.placing[0].length != 0){
                 JOptionPane.showMessageDialog(
                         null,
@@ -132,7 +132,7 @@ public class DivisionMenu {
         tog_button_bin.setFont(new Font("Inter", Font.PLAIN, 10));
         tog_button_bin.setBackground(gray);
 
-        tog_button_text.addActionListener(_ -> {
+        tog_button_text.addActionListener(e -> {
                 if (!tog_button_text.getBackground().equals(blue)) {
                     tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
@@ -143,7 +143,7 @@ public class DivisionMenu {
                     tog_button_text.setSelected(false);
                 }
         });
-        tog_button_bin.addActionListener(_ -> {
+        tog_button_bin.addActionListener(e -> {
             if (!tog_button_bin.getBackground().equals(blue)) {
                 tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
                 tog_button_text.setBackground(gray); // Powrót do początkowego koloru

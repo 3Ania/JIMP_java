@@ -18,20 +18,6 @@ class Circle extends JPanel {
         setOpaque(false);
     }
 
-//    public circle(int diameter, String text, int str_size) {
-//        this.circle_color = new Color(53, 193, 232);
-//        this.circle_diameter = diameter;
-//        this.text_in_circle = text;
-//        this.stroke_size = str_size;
-//        setOpaque(false);
-//    }
-
-    // Domyślny konstruktor, jeśli chcesz mieć domyślną średnicę
-//    public circle() {
-//        this(100, ""); // Wywołuje powyższy konstruktor z domyślną średnicą 100
-//        setOpaque(false);
-//    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Ważne, aby wywołać metodę klasy nadrzędnej!

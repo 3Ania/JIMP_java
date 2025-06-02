@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FillGraphWithOutput {
-    public static void main(String[] args, int parts_amount, Graph graph) {
-        String filePath = "output.txt"; // Zmień na faktyczną ścieżkę do pliku
+    public static void main(String[] args, int parts_amount, Graph graph, String path) {
+        String filePath = path; //"output.txt"; // Zmień na faktyczną ścieżkę do pliku
 
         int line_nr = 0;
         int[][] placing = {{}};
@@ -47,12 +47,12 @@ public class FillGraphWithOutput {
                         node_amount++;
                     }
                 }
-                else if(parts_amount != 0 && line_nr == 3){
+                else if(line_nr == 3){
                     splitted_line4 = line.split(";");
                     connections = new int[node_amount][];
                     parts = new int[parts_amount][];
                 }
-                else if(parts_amount != 0){
+                else{
                     String[] splitted_line = line.split(";");
                     sizep = splitted_line.length;
 
@@ -60,11 +60,13 @@ public class FillGraphWithOutput {
 
                     if(line_nr != 4){
                         for(int k = j; k < splitted_line4.length && k < Integer.parseInt(splitted_line[0]); k++){
+                        	node = Integer.parseInt(splitted_line4[j]);
+                        	size = Integer.parseInt(splitted_line[0]) - j - 1;
                             if(k == j){
-                                size = Integer.parseInt(splitted_line[0]) - j - 1;
-                                node = Integer.parseInt(splitted_line4[j]);
-                                parts[idxi][idxjp] = node;
-                                idxjp++;
+                            	if(parts_amount != 0) {
+                                    parts[idxi][idxjp] = node;
+                                    idxjp++;
+                            	}
                                 connections[node] = new int[size];
                             }
                             else {
@@ -74,7 +76,7 @@ public class FillGraphWithOutput {
                         }
                     }
                     idxi++;
-                    parts[idxi] = new int[sizep];
+                    if(parts_amount != 0) parts[idxi] = new int[sizep];
                     idxjp = 0;
                     for(i = 1; i < splitted_line.length; i++){
                         idxj = 0;
@@ -82,8 +84,10 @@ public class FillGraphWithOutput {
                             if(j == Integer.parseInt(splitted_line[i-1]))  {
                                 node = Integer.parseInt(splitted_line4[j]);
                                 size = Integer.parseInt(splitted_line[i]) - Integer.parseInt(splitted_line[i-1]) - 1;
-                                parts[idxi][idxjp] = node;
-                                idxjp++;
+                                if(parts_amount != 0) {
+                                	parts[idxi][idxjp] = node;
+                                	idxjp++;
+                                }
                                 connections[node] = new int[size];
                             }
                             else {
@@ -100,8 +104,10 @@ public class FillGraphWithOutput {
                 if(k == j){
                     size = splitted_line4.length - j - 1;
                     node = Integer.parseInt(splitted_line4[j]);
-                    parts[idxi][idxjp] = node;
-                    idxjp++;
+                    if(parts_amount != 0) {
+                    	parts[idxi][idxjp] = node;
+                        idxjp++;
+                    }
                     connections[node] = new int[size];
                 }
                 else {

@@ -2,7 +2,12 @@ package graph_division;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainMenu {
 
@@ -32,9 +37,9 @@ public class MainMenu {
         show_graph.setBackground(gray);
         show_graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        show_graph.addActionListener(_ -> {
+        show_graph.addActionListener(e -> {
             frame.dispose();
-            FillGraphWithOutput.main(args, 0, graph);
+            FillGraphWithOutput.main(args, 0, graph, "src\\connection_with_C\\input_graph.txt");
             DrawGraph.main(args, graph, 2);
         });
 
@@ -55,7 +60,7 @@ public class MainMenu {
         divide.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        divide.addActionListener(_ -> {
+        divide.addActionListener(e -> {
             frame.dispose();
             DivisionMenu.main(args, graph);
         });
@@ -68,14 +73,30 @@ public class MainMenu {
         read.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //to edit!!!
-        read.addActionListener(_ -> {
+        read.addActionListener(x -> {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
             //kod wczytywania pliku do grafu
             File selectedFile = fileChooser.getSelectedFile();
             System.out.println("Wczytano plik: " + selectedFile.getAbsolutePath());
+            File outputFile = new File("src\\connection_with_C\\input_graph.txt"); // Tworzymy obiekt dla pliku wyjściowego
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    writer.write(line);
+                    writer.newLine(); // Dodajemy znak nowej linii po każdej przepisanej linii
+                }
+                System.out.println("Zawartość pliku '" + selectedFile.getName() + "' została pomyślnie przepisana do 'input.txt'.");
+                FillGraphWithOutput.main(args, 0, graph, "src\\connection_with_C\\input_graph.txt");
+            } catch (IOException e) {
+                System.err.println("Wystąpił błąd podczas operacji na plikach: " + e.getMessage());
+                // Możesz dodać bardziej szczegółową obsługę błędów, np. okienko dialogowe z komunikatem
             }
+        }
         });
 
         JButton save_graph = new JButton("Zapisz graf");
@@ -111,7 +132,7 @@ public class MainMenu {
         tog_button_bin.setFont(new Font("Inter", Font.PLAIN, 10));
         tog_button_bin.setBackground(gray);
 
-        tog_button_text.addActionListener(_ -> {
+        tog_button_text.addActionListener(e -> {
                 if (!tog_button_text.getBackground().equals(blue)) {
                     tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
@@ -122,7 +143,7 @@ public class MainMenu {
                     tog_button_text.setSelected(false);
                 }
         });
-        tog_button_bin.addActionListener(_ -> {
+        tog_button_bin.addActionListener(e -> {
             if (!tog_button_bin.getBackground().equals(blue)) {
                 tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
                 tog_button_text.setBackground(gray); // Powrót do początkowego koloru
