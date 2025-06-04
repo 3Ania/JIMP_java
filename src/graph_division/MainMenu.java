@@ -16,9 +16,9 @@ public class MainMenu {
 
     //suwak
     JButton tog_button_text = new JButton(" ");
-    JButton tog_button_bin = new JButton(" ");
+    public static JButton tog_button_bin = new JButton(" ");
 
-    JTextField p_amount_field = new JTextField();
+    public static JTextField p_amount_field = new JTextField();
     JTextField margin_field = new JTextField();
 
     //tytuł
@@ -37,7 +37,7 @@ public class MainMenu {
         show_graph.setBackground(gray);
         show_graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        show_graph.addActionListener(e -> {
+        show_graph.addActionListener(_ -> {
             frame.dispose();
             FillGraphWithOutput.main(args, 0, graph, "src\\connection_with_C\\input_graph.txt");
             DrawGraph.main(args, graph, 2);
@@ -60,7 +60,7 @@ public class MainMenu {
         divide.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        divide.addActionListener(e -> {
+        divide.addActionListener(_ -> {
             frame.dispose();
             DivisionMenu.main(args, graph);
         });
@@ -73,7 +73,7 @@ public class MainMenu {
         read.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //to edit!!!
-        read.addActionListener(x -> {
+        read.addActionListener(_ -> {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -132,7 +132,7 @@ public class MainMenu {
         tog_button_bin.setFont(new Font("Inter", Font.PLAIN, 10));
         tog_button_bin.setBackground(gray);
 
-        tog_button_text.addActionListener(e -> {
+        tog_button_text.addActionListener(_ -> {
                 if (!tog_button_text.getBackground().equals(blue)) {
                     tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
@@ -143,7 +143,7 @@ public class MainMenu {
                     tog_button_text.setSelected(false);
                 }
         });
-        tog_button_bin.addActionListener(e -> {
+        tog_button_bin.addActionListener(_ -> {
             if (!tog_button_bin.getBackground().equals(blue)) {
                 tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
                 tog_button_text.setBackground(gray); // Powrót do początkowego koloru
@@ -173,7 +173,7 @@ public class MainMenu {
 
     //konstruktor
     public MainMenu(String[] args, Graph graph) {
-        JFrame frame = new JFrame("GraphDivider");
+        ClosableFrame frame = new ClosableFrame("GraphDivider", "main");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 

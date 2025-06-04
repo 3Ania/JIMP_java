@@ -15,9 +15,9 @@ public class DivisionMenu {
 
     //suwak
     JButton tog_button_text = new JButton(" ");
-    JButton tog_button_bin = new JButton(" ");
+    public static JButton tog_button_bin = new JButton(" ");
 
-    JTextField p_amount_field = new JTextField();
+    public static JTextField p_amount_field = new JTextField();
     JTextField margin_field = new JTextField();
 
     //Powrót
@@ -29,7 +29,7 @@ public class DivisionMenu {
         back.setBackground(new Color(180,180,180));
         back_panel.add(back);
         back_panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, back.getPreferredSize().height));
-        back.addActionListener(e -> {
+        back.addActionListener(_ -> {
                 frame.dispose();
                 if(where_to == 1){
                     DivisionMenu.main(args, graph);
@@ -61,7 +61,7 @@ public class DivisionMenu {
         show_graphs.setPreferredSize(targetSize);
         show_graphs.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
 
-        show_graphs.addActionListener(e -> {
+        show_graphs.addActionListener(_ -> {
                 frame.dispose();
                 DrawGraph.main(args, graph, 1);
         });
@@ -73,7 +73,7 @@ public class DivisionMenu {
         divide.setMaximumSize(new Dimension(targetSize.width, targetSize.height));
         divide.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        divide.addActionListener(e -> {
+        divide.addActionListener(_ -> {
             int parts_amount = 2;
             int margin = 10;
             if(!p_amount_field.getText().isEmpty()){
@@ -82,7 +82,7 @@ public class DivisionMenu {
             if(!margin_field.getText().isEmpty()){
                 margin = Integer.parseInt(margin_field.getText());
             }
-            boolean isDivided = GraphDividerWrapper.get_output_from_C(parts_amount, margin);
+            boolean isDivided = GraphDividerWrapper.get_output_from_C(parts_amount, margin, false);
             FillGraphWithOutput.main(args, parts_amount, graph, "output.txt");
             if(isDivided && graph.placing.length != 0 && graph.placing[0].length != 0){
                 JOptionPane.showMessageDialog(
@@ -132,7 +132,7 @@ public class DivisionMenu {
         tog_button_bin.setFont(new Font("Inter", Font.PLAIN, 10));
         tog_button_bin.setBackground(gray);
 
-        tog_button_text.addActionListener(e -> {
+        tog_button_text.addActionListener(_ -> {
                 if (!tog_button_text.getBackground().equals(blue)) {
                     tog_button_text.setBackground(blue); // Przykładowa zmiana wyglądu
                     tog_button_bin.setBackground(gray); // Powrót do początkowego koloru
@@ -143,7 +143,7 @@ public class DivisionMenu {
                     tog_button_text.setSelected(false);
                 }
         });
-        tog_button_bin.addActionListener(e -> {
+        tog_button_bin.addActionListener(_ -> {
             if (!tog_button_bin.getBackground().equals(blue)) {
                 tog_button_bin.setBackground(blue); // Przykładowa zmiana wyglądu
                 tog_button_text.setBackground(gray); // Powrót do początkowego koloru
@@ -207,7 +207,7 @@ public class DivisionMenu {
 
     //konstruktor
     public DivisionMenu(String[] args, Graph graph) {
-        JFrame frame = new JFrame("GraphDivider");
+        ClosableFrame frame = new ClosableFrame("GraphDivider", "division");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
@@ -242,5 +242,6 @@ public class DivisionMenu {
     }
     public static void main(String[] args, Graph graph) {
         SwingUtilities.invokeLater(() -> new DivisionMenu(args, graph));
+
     }
 }

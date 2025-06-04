@@ -102,7 +102,7 @@ public class DrawGraph {
 
 
             for (int i = 0; i < graph.connections.length; i++) {
-                for (int j = 0; j < graph.connections[i].length; j++) {
+                for (int j = 0; graph.connections[i] != null && j < graph.connections[i].length; j++) {
                     graph_panel.addConnectionLine(circleX.get(i), circleY.get(i), circleX.get(graph.connections[i][j]), circleY.get(graph.connections[i][j]));
                 }
             }
